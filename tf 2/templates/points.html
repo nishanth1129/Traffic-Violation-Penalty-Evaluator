@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Points & License Status - PenaltyEval{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2rem;">
+      <span class="eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        Points &amp; License Status
+      </span>
+      <h1>Watch your points add up.</h1>
+      <p style="color:var(--fg-muted);font-size:1.05rem;max-width:620px;">Demerit points stack across a 12–36 month rolling window depending on your state. When they cross a threshold, your insurance, license, and even your job can be at risk.</p>
+    </div>
+
+    <div class="grid grid-2 reveal-stagger">
+      <div class="card meter-card">
+        <h3 style="margin-bottom:.5rem;">Points simulator</h3>
+        <p style="color:var(--fg-muted);">Move the slider to simulate accumulated demerit points.</p>
+
+        <div class="meter-arc">
+          <svg viewBox="0 0 280 160">
+            <path d="M30 140 A110 110 0 0 1 250 140" fill="none" stroke="var(--bg-soft)" stroke-width="14" stroke-linecap="round"/>
+            <path id="pArc" d="M30 140 A110 110 0 0 1 250 140" fill="none"
+                  stroke="url(#meterGrad)" stroke-width="14" stroke-linecap="round"
+                  style="stroke-dasharray:0 691;transition:stroke-dasharray .5s var(--ease-out);"/>
+            <defs>
+              <linearGradient id="meterGrad" x1="0" x2="1">
+                <stop offset="0%" stop-color="#10b981"/>
+                <stop offset="50%" stop-color="#f59e0b"/>
+                <stop offset="100%" stop-color="#ef4444"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <p class="meter-display" id="pDisplay">2</p>
+        <p style="color:var(--fg-muted);">demerit points</p>
+
+        <input type="range" min="0" max="20" value="2" id="pSlider" class="range" style="margin-top:1rem;" />
+
+        <div id="pStatus" style="margin-top:1.5rem;padding:1rem;border-radius:var(--radius);background:var(--bg-soft);text-align:left;">
+          <div class="pstatus-label" style="font-weight:700;font-size:1.1rem;">Clean Record</div>
+          <div class="pstatus-msg" style="color:var(--fg-muted);font-size:.92rem;">No active violations of concern.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">Threshold ladder</h3>
+        <div class="threshold-list">
+          {% for t in thresholds %}
+          <div class="threshold-item" data-threshold="{{ t.max }}">
+            <div class="threshold-num">{{ loop.index0 * 4 if loop.index0 > 0 else 0 }}</div>
+            <div class="threshold-meta">
+              <strong>{{ t.label }}</strong>
+              <small>{{ t.message }}</small>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-3 reveal" style="margin-top:3rem;">
+      <div class="stat-tile">
+        <div class="stat-label">Reset window</div>
+        <div class="stat-value" data-count="36" data-suffix=" mo">0 mo</div>
+        <div class="stat-foot">in most states</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">Insurance impact</div>
+        <div class="stat-value" data-count="35" data-suffix="%">0%</div>
+        <div class="stat-foot">average rate jump per major violation</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">Reduction courses</div>
+        <div class="stat-value" data-count="3" data-suffix=" pts">0 pts</div>
+        <div class="stat-foot">typical max reduction</div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/points.js') }}"></script>
+{% endblock %}

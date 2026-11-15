@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Contact - PenaltyEval{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2rem;">
+      <span class="eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+        Get in touch
+      </span>
+      <h1>Have a question or correction?</h1>
+      <p style="color:var(--fg-muted);font-size:1.05rem;max-width:560px;">Spotted a wrong number, a confusing tip, or want to suggest a missing violation? Drop us a note.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="card">
+        <h3 style="margin-top:0;">Reach us</h3>
+        <p style="color:var(--fg-muted);">We answer most messages within 48 hours.</p>
+
+        <div class="contact-info-item">
+          <div class="icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+          </div>
+          <div>
+            <strong>Email</strong>
+            <div style="color:var(--fg-muted);font-size:.9rem;">hello@penaltyeval.example</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div>
+            <strong>Response time</strong>
+            <div style="color:var(--fg-muted);font-size:.9rem;">Within 2 business days</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <strong>Located</strong>
+            <div style="color:var(--fg-muted);font-size:.9rem;">Remote-first</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">Send a message</h3>
+        <form id="contactForm">
+          <div class="field">
+            <label for="cName">Your name</label>
+            <input class="input" id="cName" name="name" required maxlength="100" placeholder="Jane Doe" />
+          </div>
+          <div class="field">
+            <label for="cEmail">Email address</label>
+            <input class="input" id="cEmail" name="email" type="email" required placeholder="you@example.com" />
+          </div>
+          <div class="field">
+            <label for="cMsg">Message</label>
+            <textarea class="textarea" id="cMsg" name="message" required placeholder="Tell us what's on your mind..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Send message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+{% endblock %}

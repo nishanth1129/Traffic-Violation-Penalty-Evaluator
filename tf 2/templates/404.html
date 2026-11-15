@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Page Not Found - PenaltyEval{% endblock %}
+
+{% block content %}
+<section class="notfound">
+  <div class="container">
+    <div class="float" style="display:inline-block;">
+      <div class="stop-sign">STOP</div>
+    </div>
+    <h1>404</h1>
+    <h2 style="font-size:1.5rem;margin-bottom:.5rem;">Wrong way.</h2>
+    <p style="color:var(--fg-muted);">The page you're looking for isn't on this road.</p>
+    <div style="margin-top:2rem;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;">
+      <a href="/" class="btn btn-primary">Back to home</a>
+      <a href="/evaluator" class="btn btn-outline">Open evaluator</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

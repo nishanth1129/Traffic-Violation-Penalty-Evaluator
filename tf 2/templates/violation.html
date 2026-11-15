@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}{{ v.name }} - PenaltyEval{% endblock %}
+
+{% block content %}
+<section class="detail-hero">
+  <div class="blob amber" style="top:-180px;right:-140px;opacity:.3;"></div>
+  <div class="container">
+    <div class="breadcrumbs">
+      <a href="/">Home</a><span>/</span>
+      <a href="/violations">Violations</a><span>/</span>
+      <span>{{ v.name }}</span>
+    </div>
+    <span class="pill {{ v.severity }}" style="margin-bottom:.85rem;">{{ v.severity|title }} &middot; {{ v.category }}</span>
+    <h1 class="reveal in">{{ v.name }}</h1>
+    <p style="font-size:1.15rem;color:var(--fg-soft);max-width:620px;">{{ v.description }}</p>
+
+    <div class="detail-grid">
+      <div>
+        {% if v.tiers %}
+        <div class="reveal">
+          <h2>Tiered penalties</h2>
+          <p style="color:var(--fg-muted);">Most jurisdictions escalate penalties as severity grows.</p>
+          <div class="tier-list">
+            {% for t in v.tiers %}
+            <div class="tier-item">
+              <div class="tier-label">{{ t.label }}</div>
+              <div class="tier-meta">${{ t.fine }} fine &middot; {{ t.points }} points</div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="reveal" style="margin-top:2rem;">
+          <h2>Common scenarios</h2>
+          <ul style="padding-left:1.25rem;color:var(--fg-soft);line-height:1.8;">
+            {% for ex in v.examples %}<li>{{ ex }}</li>{% endfor %}
+          </ul>
+        </div>
+
+        <div class="reveal" style="margin-top:2rem;">
+          <h2>How to avoid it</h2>
+          <ul style="padding-left:1.25rem;color:var(--fg-soft);line-height:1.8;">
+            {% for tip in v.tips %}<li>{{ tip }}</li>{% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <aside>
+        <div class="card reveal">
+          <h3 style="margin-top:0;">At a glance</h3>
+          <table class="fact-table">
+            <tr><th>Severity</th><td>{{ v.severity|title }}</td></tr>
+            <tr><th>Category</th><td>{{ v.category }}</td></tr>
+            <tr><th>Fine range</th><td>${{ v.fine_min }} – ${{ v.fine_max }}</td></tr>
+            <tr><th>Points</th><td>{{ v.points }}</td></tr>
+            <tr><th>Jail risk</th><td>{{ v.jail_chance }}%</td></tr>
+            <tr><th>Suspension risk</th><td>{{ v.suspend_chance }}%</td></tr>
+          </table>
+          <a href="/evaluator" class="btn btn-primary" style="width:100%;margin-top:1rem;">Run my scenario</a>
+        </div>
+
+        {% if related %}
+        <div class="card reveal" style="margin-top:1rem;">
+          <h3 style="margin-top:0;">Related</h3>
+          {% for r in related %}
+          <a href="/violations/{{ r.slug }}" style="display:block;padding:.75rem 0;border-bottom:1px solid var(--border);color:var(--fg);">
+            <div style="font-weight:600;">{{ r.name }}</div>
+            <div style="font-size:.85rem;color:var(--fg-muted);">${{ r.fine_min }}–${{ r.fine_max }} &middot; {{ r.points }} pts</div>
+          </a>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </aside>
+    </div>
+  </div>
+</section>
+{% endblock %}

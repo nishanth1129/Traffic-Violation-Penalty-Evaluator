@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}About - PenaltyEval{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">About</span>
+      <h1>A clear-headed companion for an anxious moment.</h1>
+      <p style="font-size:1.15rem;color:var(--fg-soft);max-width:620px;">PenaltyEval started with a simple question: why is it so hard to find out what a ticket actually costs? We built the tool we wished existed - instant, honest, calm, and free.</p>
+    </div>
+
+    <div class="grid grid-3 reveal-stagger" style="margin-top:3rem;">
+      <div class="principle-card">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1l3 6 6 .9-4.5 4.4 1 6.7L12 16l-5.5 3 1-6.7L3 7.9 9 7l3-6z"/></svg>
+        </div>
+        <h3>Calm clarity</h3>
+        <p>Traffic law is intimidating. We translate it into numbers and language anyone can act on.</p>
+      </div>
+      <div class="principle-card">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        </div>
+        <h3>Real math</h3>
+        <p>Every fine, point, and risk percentage comes from a transparent rules engine - no hand-waving.</p>
+      </div>
+      <div class="principle-card">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.6a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.07a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.85a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3>Driver-first</h3>
+        <p>We're not affiliated with any court, insurer, or attorney network. The tool exists for you.</p>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:4rem;">
+      <h2>Methodology</h2>
+      <p style="color:var(--fg-muted);max-width:620px;">How we arrive at the numbers behind every estimate.</p>
+      <div class="grid grid-2 reveal-stagger" style="margin-top:1.5rem;">
+        <div class="card">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:2.4rem;font-weight:700;color:var(--amber-600);">1</div>
+          <h3>Catalogue baseline</h3>
+          <p style="color:var(--fg-muted);">We surveyed published penalty schedules across multiple US jurisdictions and selected representative midpoints for each violation.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:2.4rem;font-weight:700;color:var(--amber-600);">2</div>
+          <h3>Aggravator modeling</h3>
+          <p style="color:var(--fg-muted);">Common modifiers (school zone, work zone, repeat offense, accident, minor passenger) apply transparent multipliers and additive points.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:2.4rem;font-weight:700;color:var(--amber-600);">3</div>
+          <h3>Tiered offenses</h3>
+          <p style="color:var(--fg-muted);">Speeding and DUI use tiered logic that reflects how most states actually escalate penalties (e.g. BAC ≥ 0.15 triggers aggravated DUI).</p>
+        </div>
+        <div class="card">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:2.4rem;font-weight:700;color:var(--amber-600);">4</div>
+          <h3>Risk percentages</h3>
+          <p style="color:var(--fg-muted);">Jail and suspension percentages are calibrated estimates - they reflect typical likelihood, not certainty.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:4rem;">
+      <div class="disclaimer-card">
+        <div class="icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="17" r=".5"/></svg>
+        </div>
+        <div>
+          <h2 style="margin-top:0;">Important disclaimer</h2>
+          <p>PenaltyEval is an <strong>educational tool</strong>. Estimates are based on common US-style penalty structures and do not represent any specific jurisdiction's legal code.</p>
+          <p>Actual fines, points, license consequences, and jail time depend on your state, your county, the citing officer, the judge, your prior record, and many other factors we cannot model.</p>
+          <p><strong>This is not legal advice.</strong> For any citation that could affect your license, livelihood, or freedom, consult a licensed attorney in your jurisdiction before making decisions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

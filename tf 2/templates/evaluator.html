@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Evaluator - PenaltyEval{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2rem;">
+      <span class="eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg>
+        Penalty Evaluator
+      </span>
+      <h1>Tell us what happened.</h1>
+      <p style="color:var(--fg-muted);font-size:1.05rem;max-width:560px;">Pick a violation, add the situational details, and see your probable penalty range. All math runs locally on your computer.</p>
+    </div>
+
+    <div class="evaluator-grid">
+      <div class="card">
+        <div class="eval-step">
+          <span class="eval-step-num">Step 1</span>
+          <h3>Choose a violation</h3>
+          <div class="violation-pick-list" id="vList">
+            {% for v in violations %}
+            <button class="violation-card" type="button"
+                    data-slug="{{ v.slug }}"
+                    {% if v.tiers %}data-tiers='{{ v.tiers|tojson }}'{% endif %}>
+              <div class="v-name">{{ v.name }}</div>
+              <span class="pill {{ v.severity }}" style="margin-top:.5rem;">{{ v.severity|title }}</span>
+            </button>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div id="tierWrap"></div>
+
+        <div class="eval-step">
+          <span class="eval-step-num">Step 3</span>
+          <h3>Aggravating factors</h3>
+          <p style="color:var(--fg-muted);font-size:.9rem;">Tick anything that applies. Each adds to fines, points, or risk.</p>
+          <div class="grid grid-2" id="modList">
+            {% for m in modifiers %}
+            <label class="check-card">
+              <input type="checkbox" value="{{ m.id }}" />
+              <div class="check-card-text">{{ m.label }}</div>
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="verdict" id="verdict">
+          <div class="verdict-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            </svg>
+            <h3 style="color:#fff;margin:0;">Your verdict appears here</h3>
+            <p style="margin:0;">Pick a violation on the left to begin. Every change updates the estimate live.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/evaluator.js') }}"></script>
+{% endblock %}

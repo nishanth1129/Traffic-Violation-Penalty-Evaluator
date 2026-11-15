@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Violations Catalogue - PenaltyEval{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2rem;">
+      <span class="eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46"/></svg>
+        Violation Catalogue
+      </span>
+      <h1>Every common citation, explained.</h1>
+      <p style="color:var(--fg-muted);font-size:1.05rem;max-width:560px;">{{ violations|length }} violation types with real-world penalty ranges. Click any card to see details and try it in the evaluator.</p>
+    </div>
+
+    <div class="search-bar reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" id="vSearch" placeholder="Search violations..." />
+    </div>
+
+    <div class="filter-bar reveal">
+      <button class="chip active" data-sev="all">All severities</button>
+      <button class="chip" data-sev="minor">Minor</button>
+      <button class="chip" data-sev="moderate">Moderate</button>
+      <button class="chip" data-sev="serious">Serious</button>
+      <button class="chip" data-sev="severe">Severe</button>
+      <button class="chip" data-sev="criminal">Criminal</button>
+    </div>
+
+    <div class="filter-bar reveal" style="margin-bottom:2.5rem;">
+      <button class="chip active" data-cat="all">All categories</button>
+      {% set seen = [] %}
+      {% for v in violations %}
+        {% if v.category not in seen %}
+          {% if seen.append(v.category) %}{% endif %}
+          <button class="chip" data-cat="{{ v.category }}">{{ v.category }}</button>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="violations-grid reveal-stagger" id="vGrid">
+      {% for v in violations %}
+      <a class="v-tile" href="/violations/{{ v.slug }}"
+         data-sev="{{ v.severity }}" data-cat="{{ v.category }}"
+         data-tilt>
+        <div class="v-tile-head">
+          <span class="pill {{ v.severity }}">{{ v.severity|title }}</span>
+          <span class="v-tile-cat">{{ v.category }}</span>
+        </div>
+        <h3>{{ v.name }}</h3>
+        <p>{{ v.summary }}</p>
+        <div class="v-tile-foot">
+          <dl>
+            <div><dt>Fine</dt><dd>${{ v.fine_min }}–${{ v.fine_max }}</dd></div>
+            <div><dt>Points</dt><dd>{{ v.points }}</dd></div>
+          </dl>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
+    <div id="vEmpty" style="display:none;text-align:center;padding:4rem 1rem;color:var(--fg-muted);">
+      <p>No violations match your filters.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/violations.js') }}"></script>
+{% endblock %}

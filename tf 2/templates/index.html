@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block title %}PenaltyEval - Know what your ticket actually costs{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="blob amber" style="top:-200px;left:-150px;"></div>
+  <div class="blob green" style="bottom:-200px;right:-150px;animation-delay:-9s;"></div>
+  <div class="grid-bg"></div>
+  <div class="particles" data-particles="14"></div>
+
+  <div class="container">
+    <div class="reveal-stagger">
+      <span class="pill" style="background:var(--amber-50);color:var(--amber-700);border-color:var(--amber-300);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        Civic clarity, instantly
+      </span>
+      <h1>Know what your <span class="accent">ticket</span> actually costs.</h1>
+      <p class="hero-lede">A clear, calm, jargon-free penalty evaluator for drivers. Look up a violation, enter the details, and see your real-world exposure: fines, demerit points, license risk, and possible jail time.</p>
+      <div class="hero-cta">
+        <a href="/evaluator" class="btn btn-primary btn-lg">Evaluate a Violation
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="/violations" class="btn btn-outline btn-lg">Browse Catalogue</a>
+      </div>
+      <div class="hero-trust">
+        <div><strong>{{ stats.violations_count }}</strong> violations</div>
+        <div><strong>${{ '{:,}'.format(stats.avg_fine) }}</strong> avg fine</div>
+        <div><strong>100%</strong> private &middot; runs in your browser</div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="float">
+        <div class="traffic-light"><div class="tl-dot red on"></div><div class="tl-dot yellow"></div><div class="tl-dot green"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-strip">
+  <div class="marquee">
+    <span>Speeding</span><span>Red Light</span><span>DUI</span><span>Reckless</span><span>Stop Sign</span><span>Distracted Driving</span><span>Parking</span><span>No Insurance</span><span>Hit and Run</span><span>Seatbelt</span>
+    <span>Speeding</span><span>Red Light</span><span>DUI</span><span>Reckless</span><span>Stop Sign</span><span>Distracted Driving</span><span>Parking</span><span>No Insurance</span><span>Hit and Run</span><span>Seatbelt</span>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why PenaltyEval</span>
+      <h2>Three things drivers actually need.</h2>
+      <p>Not a court website. Not a 30-page PDF. Not a sales funnel for legal services.</p>
+    </div>
+
+    <div class="feature-row reveal-stagger">
+      <div class="feature">
+        <div class="icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3>Instant answers</h3>
+        <p>Pick a violation, add context, and the math runs locally. No accounts, no waiting.</p>
+      </div>
+      <div class="feature">
+        <div class="icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        </div>
+        <h3>Real numbers</h3>
+        <p>Fines, points, suspension risk, and jail probability - all from a transparent rules engine.</p>
+      </div>
+      <div class="feature">
+        <div class="icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-12a8 8 0 1 1 16 0c0 7.5-8 12-8 12z"/></svg>
+        </div>
+        <h3>Calm by design</h3>
+        <p>Plain language, soft animations, and zero scare tactics. We respect your stress.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-bg-soft">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Catalogue preview</span>
+      <h2>Common violations covered.</h2>
+      <p>Click any tile to see fines, points, modifiers, and habits to avoid the same ticket twice.</p>
+    </div>
+    <div class="violations-grid reveal-stagger">
+      {% for v in featured %}
+      <a class="v-tile" href="/violations/{{ v.slug }}" data-tilt>
+        <div class="v-tile-head">
+          <span class="pill {{ v.severity }}">{{ v.severity|title }}</span>
+          <span class="v-tile-cat">{{ v.category }}</span>
+        </div>
+        <h3>{{ v.name }}</h3>
+        <p>{{ v.summary }}</p>
+        <div class="v-tile-foot">
+          <dl>
+            <div><dt>Fine</dt><dd>${{ v.fine_min }}–${{ v.fine_max }}</dd></div>
+            <div><dt>Points</dt><dd>{{ v.points }}</dd></div>
+          </dl>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    <div style="text-align:center;margin-top:2rem;">
+      <a href="/violations" class="btn btn-outline">See all {{ stats.violations_count }} violations</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">By the numbers</span>
+      <h2>Built to give you real signal.</h2>
+    </div>
+    <div class="grid grid-4 reveal-stagger">
+      <div class="stat-tile"><div class="stat-label">Violations</div><div class="stat-value" data-count="{{ stats.violations_count }}">0</div><div class="stat-foot">across 5 categories</div></div>
+      <div class="stat-tile"><div class="stat-label">Modifiers</div><div class="stat-value" data-count="{{ stats.modifiers_count }}">0</div><div class="stat-foot">situational adjustments</div></div>
+      <div class="stat-tile"><div class="stat-label">Avg fine</div><div class="stat-value" data-count="{{ stats.avg_fine }}" data-prefix="$">$0</div><div class="stat-foot">midpoint estimate</div></div>
+      <div class="stat-tile"><div class="stat-label">Max points</div><div class="stat-value" data-count="{{ stats.max_points }}">0</div><div class="stat-foot">per single offense</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-bg-amber">
+  <div class="container" style="text-align:center;">
+    <h2 class="reveal">Find out what your situation actually costs.</h2>
+    <p class="reveal" style="font-size:1.1rem;color:var(--fg-soft);max-width:560px;margin:0 auto 2rem;">Less than a minute, no signup, totally private.</p>
+    <a href="/evaluator" class="btn btn-primary btn-lg reveal">
+      Open the evaluator
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+{% endblock %}

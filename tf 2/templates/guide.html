@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Driver Guide - PenaltyEval{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2rem;">
+      <span class="eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"/></svg>
+        Driver Guide
+      </span>
+      <h1>Everything they didn't teach in driver's ed.</h1>
+      <p style="color:var(--fg-muted);font-size:1.05rem;max-width:620px;">A pragmatic guide to staying out of trouble - and what to do when you can't.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="reveal">
+        <h2>Stay safe on the road</h2>
+
+        <details class="accordion" open>
+          <summary>How can I prevent the most common citations?</summary>
+          <div class="accordion-body">Use cruise control on highways, give yourself extra time so you don't speed, mount your phone before driving, full-stop at every stop sign, and check all your lights monthly. These five habits cover ~80% of common tickets.</div>
+        </details>
+        <details class="accordion">
+          <summary>What should I do if I'm pulled over?</summary>
+          <div class="accordion-body">Pull over safely, turn off the engine, keep hands on the wheel, and politely identify yourself. Don't volunteer information. You can decline searches. Be respectful but exercise your rights.</div>
+        </details>
+        <details class="accordion">
+          <summary>Should I admit fault?</summary>
+          <div class="accordion-body">No. Anything you say can be used in court. Be polite but say only what's necessary. "I'm not sure" is a perfectly fine answer to most questions about how fast you were going.</div>
+        </details>
+        <details class="accordion">
+          <summary>Can I refuse a breathalyzer?</summary>
+          <div class="accordion-body">Almost every state has implied-consent laws - refusal usually triggers automatic license suspension. Refusal can also be used as evidence at trial. Consult an attorney for your state's specifics.</div>
+        </details>
+        <details class="accordion">
+          <summary>What's the difference between civil and criminal traffic offenses?</summary>
+          <div class="accordion-body">Civil infractions (most tickets) result in fines and points. Criminal offenses (DUI, reckless, hit-and-run) can mean jail, probation, and a permanent record. Treat criminal charges with serious legal counsel.</div>
+        </details>
+      </div>
+
+      <div class="reveal">
+        <h2>If you got a ticket</h2>
+
+        <details class="accordion" open>
+          <summary>Should I just pay the ticket?</summary>
+          <div class="accordion-body">Paying admits guilt, adds points, and raises insurance. For minor tickets it's often easier. For anything serious, contesting or hiring a lawyer can save thousands over time.</div>
+        </details>
+        <details class="accordion">
+          <summary>How do I contest a ticket?</summary>
+          <div class="accordion-body">Plead not guilty by the deadline, request the officer's appearance, and prepare your case (photos, witness statements, dashcam). Many tickets get dismissed when the officer doesn't show up.</div>
+        </details>
+        <details class="accordion">
+          <summary>Will my insurance go up?</summary>
+          <div class="accordion-body">Most major violations raise rates 20-40% for 3 years. Minor tickets may not affect rates if you have a clean prior record. Check with your insurer about forgiveness programs.</div>
+        </details>
+        <details class="accordion">
+          <summary>Can I take traffic school?</summary>
+          <div class="accordion-body">Most states allow one course every 12-18 months to remove or prevent points from a single ticket. It usually keeps insurance rates stable. Costs $25-$100 and takes 4-8 hours online.</div>
+        </details>
+        <details class="accordion">
+          <summary>When do I need a lawyer?</summary>
+          <div class="accordion-body">Always for criminal charges (DUI, reckless, hit-and-run). Strongly consider for: CDL holders, accumulating multiple tickets, accidents involving injury, or any potential license suspension.</div>
+        </details>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:3rem;">
+      <h2>Top 5 driving habits that save money</h2>
+      <div class="grid grid-4 reveal-stagger" style="margin-top:1.5rem;">
+        <div class="card">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--amber-600);">1</div>
+          <h3>Set cruise on highways</h3>
+          <p style="color:var(--fg-muted);font-size:.9rem;">Eliminates speed drift, the #1 reason for highway tickets.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--amber-600);">2</div>
+          <h3>Mount your phone</h3>
+          <p style="color:var(--fg-muted);font-size:.9rem;">Hands-free is legal in all 50 states. Holding it is not.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--amber-600);">3</div>
+          <h3>Full stop. Always.</h3>
+          <p style="color:var(--fg-muted);font-size:.9rem;">Count to two at every stop sign and right-on-red.</p>
+        </div>
+        <div class="card">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--amber-600);">4</div>
+          <h3>Check lights monthly</h3>
+          <p style="color:var(--fg-muted);font-size:.9rem;">A burned-out tail light is the easiest stop for an officer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

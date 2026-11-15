@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Statistics - PenaltyEval{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2rem;">
+      <span class="eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Catalogue Statistics
+      </span>
+      <h1>The numbers behind the catalogue.</h1>
+      <p style="color:var(--fg-muted);font-size:1.05rem;max-width:560px;">A bird's-eye view of every violation we model, broken down by severity, category, and cost.</p>
+    </div>
+
+    <div class="stat-grid reveal-stagger">
+      <div class="stat-tile">
+        <div class="stat-label">Total violations</div>
+        <div class="stat-value" data-count="{{ stats.violations_count }}">0</div>
+        <div class="stat-foot">across the catalogue</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">Avg fine</div>
+        <div class="stat-value" data-count="{{ stats.avg_fine }}" data-prefix="$">$0</div>
+        <div class="stat-foot">midpoint estimate</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">Max fine</div>
+        <div class="stat-value" data-count="{{ stats.max_fine }}" data-prefix="$">$0</div>
+        <div class="stat-foot">single-offense ceiling</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">Modifiers</div>
+        <div class="stat-value" data-count="{{ stats.modifiers_count }}">0</div>
+        <div class="stat-foot">situational adjusters</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2 reveal-stagger">
+      <div class="card">
+        <h3 style="margin-top:0;">By severity</h3>
+        <p style="color:var(--fg-muted);font-size:.9rem;">How violations distribute across severity tiers.</p>
+        <div class="bar-chart" style="margin-top:1rem;">
+          {% set max_sev = stats.by_severity.values()|max %}
+          {% for sev in ['minor', 'moderate', 'serious', 'severe', 'criminal'] %}
+            {% if sev in stats.by_severity %}
+            <div class="bar-row">
+              <div><span class="pill {{ sev }}">{{ sev|title }}</span></div>
+              <div class="bar-track"><div class="bar-fill" data-pct="{{ (stats.by_severity[sev] / max_sev) * 100 }}"></div></div>
+              <div class="bar-value">{{ stats.by_severity[sev] }}</div>
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">By category</h3>
+        <p style="color:var(--fg-muted);font-size:.9rem;">Where most violations live.</p>
+        <div class="bar-chart" style="margin-top:1rem;">
+          {% set max_cat = stats.by_category.values()|max %}
+          {% for cat, count in stats.by_category.items() %}
+            <div class="bar-row">
+              <div style="font-weight:600;font-size:.85rem;">{{ cat }}</div>
+              <div class="bar-track"><div class="bar-fill" data-pct="{{ (count / max_cat) * 100 }}"></div></div>
+              <div class="bar-value">{{ count }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-top:1.5rem;">
+      <h3 style="margin-top:0;">Top 5 most expensive violations</h3>
+      <div class="bar-chart" style="margin-top:1rem;">
+        {% set top5 = violations|sort(attribute='fine_max', reverse=True) %}
+        {% set max_fine = top5[0].fine_max %}
+        {% for v in top5[:5] %}
+        <div class="bar-row">
+          <div><a href="/violations/{{ v.slug }}" style="font-weight:600;font-size:.9rem;">{{ v.name }}</a></div>
+          <div class="bar-track"><div class="bar-fill" data-pct="{{ (v.fine_max / max_fine) * 100 }}"></div></div>
+          <div class="bar-value">${{ '{:,}'.format(v.fine_max) }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/stats.js') }}"></script>
+{% endblock %}
